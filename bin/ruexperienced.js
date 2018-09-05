@@ -8,7 +8,7 @@ const util = require('util');
 const controller = require('./controller');
 
 const logger = log4js.getLogger();
-logger.level = 'trace';
+logger.level = 'warn';
 
 const bugs = 'off'; // eslint-disable-line no-unused-vars
 
@@ -41,18 +41,27 @@ module.exports = (async () => {
                 'Password'
             ]
         })
+        .boolean('-v, --verbose', { desc: 'Verbose logging' })
+        .boolean('--trace', { desc: 'Trace logging, implies verbose' })
         .style({
             usagePositionals: str => chalk.green(str),
             desc: str => chalk.cyan(str),
         })
         .help('-h, --help')
-        .version('-v, --version')
+        .version('--version')
         .showHelpByDefault()
         .preface(title, 'Completes the sexual harassment course for you')
         .outputSettings({ maxWidth: 75 })
         .example('$0 fullname 12345 p@ssw0rd!', { desc: 'Take the test for "Ms. Full Name" at company 12345'})
         .parseAndExit();
 
+    if (args.verbose) {
+        logger.level = 'debug';
+    }
+
+    if (args.trace) {
+        logger.level = 'trace';
+    }
 
     console.log(title);
     await controller.start(args.username, args.companyID, args.password);
