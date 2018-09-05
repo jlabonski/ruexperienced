@@ -1,0 +1,42 @@
+{
+    "name": "ruexperienced",
+    "version": "1.0.0",
+    "description": "Automatically complete the SucceedMS sexual harassment training via the experience API",
+    "main": "bin/ruexperienced.js",
+    "bin": {
+        "ruexperienced": "bin/ruexperienced.js"
+    },
+    "engines": {
+        "node": "^8.9.1"
+    },
+    "scripts": {
+        "start": "node --use_strict bin/ruexperienced.js",
+        "preflight": "npm run check-node && npm run validate-package && npm run depcheck && npm run lint",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "check-node": "check-node-version --package",
+        "dammit": "rimraf node_modules && npm install",
+        "validate-package": "pjv -w -r",
+        "lint": "eslint -f visualstudio '**/*.js'",
+        "format": "eslint -f visualstudio --fix '**/*.js' ",
+        "depcheck": "depcheck"
+    },
+    "author": "Jeffrey Labonski",
+    "license": "GPL-3.0-or-later",
+    "dependencies": {
+        "chalk": "^2.4.1",
+        "figlet": "^1.2.0",
+        "log4js": "^3.0.5",
+        "moment": "^2.22.2",
+        "superagent": "^3.8.3",
+        "sywac": "^1.2.1",
+        "url": "^0.11.0",
+        "uuid": "^3.3.2"
+    },
+    "devDependencies": {
+        "check-node-version": "^3.2.0",
+        "depcheck": "^0.6.11",
+        "eslint": "^5.4.0",
+        "package-json-validator": "^0.6.3",
+        "rimraf": "^2.6.2"
+    }
+}
