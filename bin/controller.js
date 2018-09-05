@@ -79,6 +79,7 @@ const login = async (username, companyID, password) => {
     const response = await agent.post(`${portal}/Api/Login`).send(loginBody);
     logger.debug(`Received HTTP ${response.status}, ${response.headers['content-length']} bytes`);
 
+    // Remote API returns 200 on login failure.
     if (response.body.LoginStatus === 'Failure') {
         return false;
     }
