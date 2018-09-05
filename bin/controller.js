@@ -45,6 +45,13 @@ const start = async (username, companyID, password) => {
     const taskUrl = await initializeTask(upcoming['Id']);
     const context = await getTaskContext(taskUrl);
     await passTest(context);
+    const complete = await getCompletedTask();
+    if (!complete) {
+        throw new Error('Something went wrong, task did not move to complete');
+    }
+    await getCertificate(complete['UserId']);
+    console.log('Certificate downloaded. Enjoy.');
+
 };
 
 /**
