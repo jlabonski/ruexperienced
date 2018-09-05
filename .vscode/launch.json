@@ -11,7 +11,7 @@
             "name": "Launch Program",
             "program": "${workspaceFolder}/bin/ruexperienced.js",
             "args": [
-                "foo", "123", "bar"
+                "foo", "123", "bar", "--trace"
             ]
 
         }

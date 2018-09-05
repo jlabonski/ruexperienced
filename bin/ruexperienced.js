@@ -1,4 +1,4 @@
-#!/usr/bin/env node --use_strict
+#!/usr/bin/env node --use_strict --trace-deprecation --trace-warnings
 
 const figlet = require('figlet');
 const chalk = require('chalk');
@@ -6,6 +6,11 @@ const log4js = require('log4js');
 const sywac = require('sywac');
 const util = require('util');
 const controller = require('./controller');
+
+require('clarify');
+require('trace');
+// Clamps the depth of the trace. See the `trace` docs.
+Error.stackTraceLimit = 100;
 
 const logger = log4js.getLogger();
 logger.level = 'warn';
@@ -18,13 +23,13 @@ util.inspect.defaultOptions.depth = 3;
 util.inspect.defaultOptions.colors = true;
 
 // Vomit uncontrollably if we do something wrong.
-process.on('unhandledRejection', up => {
+process.on('unhandledRejection', (up) => {
     logger.error('Unhandled promise rejection, process abort');
     throw up;
 });
 
 
-module.exports = (async () => {
+(async () => {
 
     const title = '\n\n' + chalk.blue(figlet.textSync('ruexperienced', { font: 'ANSI Shadow' }));
 

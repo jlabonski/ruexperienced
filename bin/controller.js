@@ -26,9 +26,14 @@ const report = 'https://www.lossfreerx.com/Reports.ashx'; // Funny, no? Looks li
  */
 const start = async (username, companyID, password) => {
 
-    await login(username, companyID, password);
-    const upcoming = await getUpcomingTask();
 
+    const loggedIn = await login(username, companyID, password);
+    if (!loggedIn) {
+        console.log('Invalid login');
+        return false;
+    }
+
+    const upcoming = await getUpcomingTask();
     if (!upcoming) {
         const complete = await getCompletedTask();
         if (complete) {
@@ -60,7 +65,6 @@ const start = async (username, companyID, password) => {
  * @param {string} username
  * @param {number} companyID
  * @param {string} password
- * @throws On anything other than 200
  */
 const login = async (username, companyID, password) => {
 
@@ -74,6 +78,11 @@ const login = async (username, companyID, password) => {
     logger.trace(loginBody);
     const response = await agent.post(`${portal}/Api/Login`).send(loginBody);
     logger.debug(`Received HTTP ${response.status}, ${response.headers['content-length']} bytes`);
+
+    if (response.body.LoginStatus === 'Failure') {
+        return false;
+    }
+    return true;
 };
 
 /**

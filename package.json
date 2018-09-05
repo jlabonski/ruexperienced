@@ -24,11 +24,13 @@
     "license": "GPL-3.0-or-later",
     "dependencies": {
         "chalk": "^2.4.1",
+        "clarify": "^2.1.0",
         "figlet": "^1.2.0",
         "log4js": "^3.0.5",
         "moment": "^2.22.2",
         "superagent": "^3.8.3",
         "sywac": "^1.2.1",
+        "trace": "^3.1.0",
         "url": "^0.11.0",
         "uuid": "^3.3.2"
     },
